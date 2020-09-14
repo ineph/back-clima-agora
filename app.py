@@ -1,5 +1,6 @@
 import requests
 import json
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -11,9 +12,9 @@ weatherbit_api_key = '55122f2c18204337a2a823a4e91778fa'
 forecast_weather = 'forecast/daily'
 current_weather = 'current'
 
-def jsonprint(obj):
-    text = json.dumps(obj,sort_keys= True, indent= 4)
-    return(text)
+# def jsonprint(obj):
+#     text = json.dumps(obj,sort_keys= True, indent= 4)
+#     return(text)
 
 @app.route("/forecast")
 def get_forecast():
