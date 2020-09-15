@@ -15,30 +15,29 @@ current_weather = 'current'
 
 @app.route("/forecast")
 def get_forecast():
-    if 'city' in request.headers:
-        place = request.args('city')
+    place = request.args.get('city')
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+    if place:
         response = requests.get(weatherbit_api_base + forecast_weather + '?city=' + place + '&lang=pt&days=7&key=' + weatherbit_api_key)
         show = response.json()
         return(show)
     else:
-        print('sexo anal')
-        lat = request.args.get('lat')
-        lon = request.args.get('lon')
         response = requests.get(weatherbit_api_base + forecast_weather + '?lat=' + lat + '&lon=' + lon + '&lang=pt&days=7&key=' + weatherbit_api_key)
         show = response.json()
         return(show)
 
 @app.route("/current")
 def get_current():
-    if request.headers.get('city'):
-        place = request.args('city')
+    place = request.args.get('city')
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+    if place:
         response = requests.get(weatherbit_api_base + current_weather + '?city=' + place + '&lang=pt&days=7&key=' + weatherbit_api_key)
         show = response.json()
         return(show)
     else:
-        lat = request.args.get('lat')
-        lon = request.args.get('lon')
-        response = requests.get(weatherbit_api_base + current_weather + '?lat='+lat+'&lon='+lon+'&lang=pt&days=7&key=' + weatherbit_api_key)
+        response = requests.get(weatherbit_api_base + current_weather + '?lat=' + lat + '&lon=' + lon + '&lang=pt&days=7&key=' + weatherbit_api_key)
         show = response.json()
         return(show)
 
