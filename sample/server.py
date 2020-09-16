@@ -13,8 +13,8 @@ CORS(app)
 weatherbit_api_base = api.url
 weatherbit_api_key = api.key
 
-cache_forecast = TTLCache(maxsize=80, ttl=600)
-cache_current = TTLCache(maxsize=80, ttl=600)
+cache_forecast = TTLCache(maxsize=80, ttl=900)
+cache_current = TTLCache(maxsize=80, ttl=900)
 
 
 @app.route("/current")
