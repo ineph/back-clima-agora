@@ -9,8 +9,8 @@ CORS(app)
 
 weatherbit_api_base = 'http://api.weatherbit.io/v2.0/'
 weatherbit_api_key = '55122f2c18204337a2a823a4e91778fa'
-forecast_weather = 'forecast/daily'
-current_weather = 'current'
+# forecast_weather = 'forecast/daily'
+# current_weather = 'current'
 
 route_forecast_cache = {}
 route_current_cache = {}
@@ -25,6 +25,7 @@ def get_method(route):
     lon = request.args.get('lon')
     coordinates = str(lat) + str(lon)
     str_coordinates = coordinates.replace('-', 'm')
+    str_place = str(place)
 
     if route == 'forecast':
         route = 'forecast/daily'
@@ -32,10 +33,12 @@ def get_method(route):
     if place:
         if place in cache:
             print('USED CACHE: place')
-            return(cache[place])
+            return(cache[str_place])
         else:
+            print('AAAAAAOOOOOOOOOOO')
+            print(route)
             response = requests.get(weatherbit_api_base + route + '?city=' + place + '&lang=pt&days=7&key=' + weatherbit_api_key)
-            cache[place] = response.json()
+            cache[str_place] = response.json()
             show = response.json()
             print('NOT USED CACHE: place')
             return(show)
