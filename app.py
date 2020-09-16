@@ -17,8 +17,8 @@ route_current_cache = {}
 cache = TTLCache(maxsize=80, ttl=600)
 
 
-@app.route("/<xota>")
-def get_method(xota):
+@app.route("/<route>")
+def get_method(route):
 
     place = request.args.get('city')
     lat = request.args.get('lat')
@@ -26,15 +26,15 @@ def get_method(xota):
     coordinates = str(lat) + str(lon)
     str_coordinates = coordinates.replace('-', 'm')
 
-    if xota == 'forecast':
-        xota = 'forecast/daily'
+    if route == 'forecast':
+        route = 'forecast/daily'
 
     if place:
         if place in cache:
             print('USED CACHE: place')
             return(cache[place])
         else:
-            response = requests.get(weatherbit_api_base + xota + '?city=' + place + '&lang=pt&days=7&key=' + weatherbit_api_key)
+            response = requests.get(weatherbit_api_base + route + '?city=' + place + '&lang=pt&days=7&key=' + weatherbit_api_key)
             cache[place] = response.json()
             show = response.json()
             print('NOT USED CACHE: place')
@@ -44,7 +44,7 @@ def get_method(xota):
             print('USED CACHE TO COORDINATES')
             return(cache[str_coordinates])
         else:
-            response = requests.get(weatherbit_api_base + xota + '?lat=' + lat + '&lon=' + lon + '&lang=pt&days=7&key=' + weatherbit_api_key)
+            response = requests.get(weatherbit_api_base + route + '?lat=' + lat + '&lon=' + lon + '&lang=pt&days=7&key=' + weatherbit_api_key)
             cache[str_coordinates] = response.json()
             show = response.json()
             print('NOT USED CACE TO CORDINATES')
