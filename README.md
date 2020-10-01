@@ -11,7 +11,7 @@ Acesse-o:
 
 Instale as dependências:
 
-```pip intall -r requirements.txt```
+```pip install -r requirements.txt```
 
 Navegue até apasta `Sample`
 
